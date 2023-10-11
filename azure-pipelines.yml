@@ -5,6 +5,8 @@ variables:
   buildConfiguration: 'Release'
   releaseBranchName: 'release'
 
+name: $(TeamProject)_$(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:r)
+
 schedules:
 - cron: '0 3 * * *'
   displayName: 'Deploy every day at 3 A.M.'
@@ -29,6 +31,7 @@ stages:
       dotnetSdkVersion: '6.x'
 
     steps:
+   
     - task: UseDotNet@2
       displayName: 'Use .NET SDK $(dotnetSdkVersion)'
       inputs:
@@ -48,7 +51,7 @@ stages:
     - script: 'echo "$(Build.DefinitionName), $(Build.BuildId), $(Build.BuildNumber)" > buildinfo.txt'
       displayName: 'Write build info'
       workingDirectory: $(wwwrootDir)
-
+      
     - task: DotNetCoreCLI@2
       displayName: 'Restore project dependencies'
       inputs:
