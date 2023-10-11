@@ -20,8 +20,9 @@ stages:
   - job: 'Build'
     displayName: 'Build job'
     pool:
-      vmImage: 'ubuntu-20.04'
+      name: az400m03l03a-pool
       demands:
+      - Agent.Name -equals az400m03-vm0
       - npm
 
     variables:
